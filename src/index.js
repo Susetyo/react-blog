@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import * as serviceWorker from './serviceWorker';
-import {BrowserRouter, Route, Link} from 'react-router-dom';
+import {BrowserRouter, Route, Link, withRouter} from 'react-router-dom';
 import Navbar from './components/NavBar';
 import Welcome from './components/Welcome';
 import Footer from './components/Footer';
@@ -10,22 +10,29 @@ import Login from './components/Login';
 import SingleArticle from './components/SingleArticle';
 import SignUp from './components/SignUp';
 
-const Home = () => <h1>This is Home</h1>
-const About = () => <h1>This is About</h1>
-
-ReactDOM.render(
-    <BrowserRouter>
+const Main = withRouter(({location})=>{
+    return(
         <div>
-            <Navbar />
+            {
+                location.pathname !== '/login' && location.pathname !== '/signup' &&
+                <Navbar />
+            }
             <Route exact path="/" component={Welcome}></Route>
-            <Route path="/home" component={Home}></Route>
-            <Route path="/about" component={About}></Route>
             <Route path="/articles/create" component={CreateArticle}></Route>
             <Route path="/login" component={Login}></Route>
             <Route path="/signUp" component={SignUp}></Route>
             <Route path="/article/:slug" component={SingleArticle}></Route>
-            <Footer />
+            {
+                location.pathname !== '/login' && location.pathname !== '/signup' &&
+                <Footer />
+            }
         </div>
+    )
+})
+
+ReactDOM.render(
+    <BrowserRouter>
+        <Main />
     </BrowserRouter>, 
     document.getElementById('root'));
 

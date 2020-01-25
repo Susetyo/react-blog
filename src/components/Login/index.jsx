@@ -1,8 +1,9 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 
 const Login = () =>{
     return(
-        <div class="mh-fullscreen bg-img center-vh p-20" style={{backgroundImage: `url(${process.env.PUBLIC_URL}/assets/img/bg-girl.jpg)`}}>
+        <div className="mh-fullscreen bg-img center-vh p-20" style={{backgroundImage: `url(${process.env.PUBLIC_URL}/assets/img/bg-girl.jpg)`}}>
             <div className="card card-shadowed p-50 w-400 mb-0" style={{maxWidth: '100%'}}>
                 <h5 className="text-uppercase text-center">Login</h5>
                 <br /><br />
@@ -26,7 +27,7 @@ const Login = () =>{
                     </div>
                 </form>
                 <hr className="w-30" />
-                <p className="text-center text-muted fs-13 mt-20">Don't have an account? <a href="register.html">Sign up</a></p>
+                <p className="text-center text-muted fs-13 mt-20">Don't have an account? <Link to="/signup">Sign up</Link></p>
             </div>
         </div>
 
