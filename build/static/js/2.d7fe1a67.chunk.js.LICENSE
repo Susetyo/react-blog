@@ -4,6 +4,13 @@ object-assign
 @license MIT
 */
 
+/*!
+ * isobject <https://github.com/jonschlinkert/isobject>
+ *
+ * Copyright (c) 2014-2017, Jon Schlinkert.
+ * Released under the MIT License.
+ */
+
 /** @license React v16.12.0
  * react.production.min.js
  *
@@ -38,4 +45,18 @@ object-assign
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
+ */
+
+/**
+ * node-slug
+ *
+ * @license MIT
+ * @copyright Slynova - Romain Lanz <romain.lanz@slynova.ch>
+ */
+
+/**
+ * charmap
+ *
+ * @license MIT
+ * @copyright Slynova - Romain Lanz <romain.lanz@slynova.ch>
  */
