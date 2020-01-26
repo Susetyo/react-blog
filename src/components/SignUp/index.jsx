@@ -1,8 +1,5 @@
 import React from 'react'
 import {Link} from 'react-router-dom';
-import { validateAll } from 'indicative/validator';
-import axios from 'axios';
-import config from '../../config';
 
 class SignUp extends React.Component{
 
@@ -26,44 +23,13 @@ class SignUp extends React.Component{
 
     handleFormSubmit = async (event) => {
         event.preventDefault();
-        const data = this.state;
-        const rules = {
-            username:'required|string',
-            email:'required|email',
-            password:'required|string|min:9|confirmed',
-        }
-
-        const messages = {
-            required: 'This {{field}} is required.',
-            'email.email': 'This email is not valid.',
-            'password.confirmed': 'This password doesn not match.'
-        }
-
-
         try{
-            await validateAll(data,rules, messages)
-
-            try{
-                const response =  await axios.post(`${config.apiUrl}/auth/register`,{
-                    name: this.state.username,
-                    email: this.state.email,
-                    password: this.state.password
-                })
-
-                localStorage.setItem('user',JSON.stringify(response.data.data));
-                this.props.setAuthUser(response.data.data);
-                this.props.history.push('/');
-
-            }catch(errors){
-                const formatedErrors = {}
-                formatedErrors['email'] = errors.response.data['email'][0];
-                this.setState({errors:formatedErrors}); 
-            }
-
+            const user = await this.props.registerUser(this.state)
+            localStorage.setItem('user',JSON.stringify(user));
+            this.props.setAuthUser(user);
+            this.props.history.push('/');
         }catch(errors){
-            const formatedErrors = {}
-            errors.forEach(error=> formatedErrors[error.field] = error.message);
-            this.setState({errors:formatedErrors});
+            this.setState({errors});
         }
     }
 
