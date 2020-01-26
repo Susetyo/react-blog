@@ -1,6 +1,8 @@
 import React from 'react'
 import {Link} from 'react-router-dom';
 import { validateAll } from 'indicative/validator';
+import axios from 'axios';
+import config from '../../config';
 
 class SignUp extends React.Component{
 
@@ -38,7 +40,22 @@ class SignUp extends React.Component{
         }
 
         validateAll(data,rules, messages)
-            .then(()=>{console.log('success')})
+            .then(()=>{
+                axios.post(`${config.apiUrl}/auth/register`,{
+                    name: this.state.username,
+                    email: this.state.email,
+                    password: this.state.password
+                })
+                .then(response=>{
+                    this.props.history.push('/');
+                })
+                .catch(errors=>{
+                    console.log(errors);
+                    const formatedErrors = {}
+                    formatedErrors['email'] = errors.response.data['email'][0];
+                    this.setState({errors:formatedErrors});                    
+                })
+            })
             .catch(erros=>{
                 const formatedErrors = {}
                 erros.forEach(error=> formatedErrors[error.field] = error.message);
