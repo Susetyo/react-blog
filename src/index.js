@@ -10,24 +10,53 @@ import Login from './components/Login';
 import SingleArticle from './components/SingleArticle';
 import SignUp from './components/SignUp';
 
-const Main = withRouter(({location})=>{
-    return(
-        <div>
-            {
-                location.pathname !== '/login' && location.pathname !== '/signup' &&
-                <Navbar />
-            }
-            <Route exact path="/" component={Welcome}></Route>
-            <Route path="/articles/create" component={CreateArticle}></Route>
-            <Route path="/login" component={Login}></Route>
-            <Route path="/signUp" component={SignUp}></Route>
-            <Route path="/article/:slug" component={SingleArticle}></Route>
-            {
-                location.pathname !== '/login' && location.pathname !== '/signup' &&
-                <Footer />
-            }
-        </div>
-    )
+class App extends React.Component{
+    constructor(){
+        super();
+
+        this.state = {
+            authUser: null
+        }
+    }
+
+    componentDidMount(){
+        const user = localStorage.getItem('user')
+        
+        if(user) this.setState({ authUser: JSON.parse(user) })
+    }
+
+    setAuthUser= (authUser) =>{
+        this.setState({ authUser })
+    }
+
+    render(){
+        const {location} = this.props;
+        return(
+            <div>
+                {
+                    location.pathname !== '/login' && location.pathname !== '/signup' &&
+                    <Navbar  authUser={this.state.authUser} />
+                }
+                <Route exact path="/" component={Welcome}></Route>
+                <Route path="/articles/create" component={CreateArticle}></Route>
+                <Route path="/login" component={Login}></Route>
+                <Route 
+                    path="/signUp" 
+                    render={(props)=><SignUp {...props} setAuthUser={this.setAuthUser} />}></Route>
+                <Route path="/article/:slug" component={SingleArticle}></Route>
+                {
+                    location.pathname !== '/login' && location.pathname !== '/signup' &&
+                    <Footer />
+                }
+            </div>
+        )
+    }
+
+}
+
+
+const Main = withRouter((props)=>{
+    return( <App {...props} />)
 })
 
 ReactDOM.render(
