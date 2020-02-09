@@ -15,4 +15,6 @@ const Banner = ({backgroundImage,title,subTitle})=>{
     )
 }
 
+
+
 export default Banner;

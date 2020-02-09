@@ -40,7 +40,15 @@ class App extends React.Component{
                 }
                 <Route exact path="/" component={Welcome}></Route>
                 <Route path="/articles/create" component={CreateArticle}></Route>
-                <Route path="/login" component={Login}></Route>
+                <Route 
+                    path="/login" 
+                    render={(props)=><Login 
+                        {...props}
+                        loginUser={this.props.authService.loginUser}
+                        setAuthUser={this.setAuthUser} 
+                    />}
+                >
+                </Route>
                 <Route 
                     path="/signUp" 
                     render={(props)=><SignUp 
