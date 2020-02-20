@@ -1,47 +1,39 @@
 import React from 'react';
-import Banner from '../Banner';
+import CreateArticleForm from './CreateArticleForm/index';
 
-const CreateArticle = () => {
-    return(
-        <div>
-            <Banner 
-                backgroundImage={`url(${process.env.PUBLIC_URL}/assets/img/bg-laptop.jpg)`}
-                title="Write an article"/>
-            <main className="main-content">
-                <section className="section">
-                <div className="container">
-                    <div className="row">
-                    <div className="col-12 col-lg-12">
-                        <form className="p-30 bg-gray rounded" method="POST" data-form="mailer">
-                        <div className="row">
-                            <div className="form-group col-md-12 my-5">
-                            <input type="file" className="form-control" />
-                            </div>
-                            <div className="form-group col-12 col-md-6">
-                            <input className="form-control form-control-lg" type="text" name="name" placeholder="Title" />
-                            </div>
-                            <div className="form-group col-12 col-md-6">
-                            <select name id className="form-control form-control-lg">
-                                <option value>Select category</option>
-                                <option value>Vuejs</option>
-                                <option value>Reactjs</option>
-                            </select>
-                            </div>
-                        </div>
-                        <div className="form-group">
-                            <textarea className="form-control form-control-lg" rows={4} placeholder="Content" name="message" defaultValue={""} />
-                        </div>
-                        <div className="text-center">
-                            <button className="btn btn-lg btn-primary" type="submit">Create Article</button>
-                        </div>
-                        </form>
-                    </div>
-                    </div>
-                </div>
-                </section>
-            </main>
-        </div>
-    )
+class CreateArticle extends React.Component{
+    constructor(){
+        super();
+
+        this.state={
+            errors:{},
+            image:null,
+            title: '',
+            category:'',
+            content:'',
+            categories:[],
+        }
+
+    }
+
+    async componentWillMount(){
+        const categories = await this.props.getArticlesCategories()
+
+        this.setState({categories})
+    }
+
+    handleChangeInput = (event) => {
+        this.setState({
+            [event.target.name] : event.target.type == "file" ? event.target.files[0] : event.target.value
+        })
+    }
+
+
+    render(){
+        return(<CreateArticleForm
+            categories = {this.state.categories} 
+            handleChangeInput={this.handleChangeInput} />)
+    }
 }
 
 export default CreateArticle;

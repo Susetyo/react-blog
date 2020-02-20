@@ -5,7 +5,6 @@ import { validateAll } from 'indicative/validator';
 export default class AuthService{
 
     async loginUser(data){
-        console.log(data)
         const rules = {
             email:'required|email',
             password:'required|string',

@@ -22,7 +22,6 @@ class SignUp extends React.Component{
     }
 
     handleFormSubmit = async (event) => {
-        console.log('login')
         event.preventDefault();
         try{
             const user = await this.props.registerUser(this.state)

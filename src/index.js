@@ -10,6 +10,7 @@ import Login from './components/Login';
 import SingleArticle from './components/SingleArticle';
 import SignUp from './components/SignUp';
 import AuthService from './services/auth';
+import ArticlesServices from './services/articles';
 
 class App extends React.Component{
     constructor(){
@@ -39,7 +40,12 @@ class App extends React.Component{
                     <Navbar  authUser={this.state.authUser} />
                 }
                 <Route exact path="/" component={Welcome}></Route>
-                <Route path="/articles/create" component={CreateArticle}></Route>
+                <Route 
+                    path="/articles/create" 
+                    render={(props)=><CreateArticle 
+                        {...props}
+                        getArticlesCategories = {this.props.articlesServices.getCategories}
+                    />}></Route>
                 <Route 
                     path="/login" 
                     render={(props)=><Login 
@@ -69,7 +75,10 @@ class App extends React.Component{
 
 
 const Main = withRouter((props)=>{
-    return( <App authService = {new AuthService()} {...props} />)
+    return( <App 
+            articlesServices = { new ArticlesServices()}
+            authService = {new AuthService()} 
+            {...props} />)
 })
 
 ReactDOM.render(

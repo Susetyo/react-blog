@@ -1,5 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 const LoginForm = ({handleChangeInput,handleSubmit,errors}) =>{
   return(
@@ -44,5 +45,13 @@ const LoginForm = ({handleChangeInput,handleSubmit,errors}) =>{
     </div>
   )
 }
+
+
+LoginForm.propTypes = {
+  handleChangeInput: PropTypes.func.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
+  errors: PropTypes.objectOf(PropTypes.string).isRequired,
+};
+
 
 export default LoginForm;
