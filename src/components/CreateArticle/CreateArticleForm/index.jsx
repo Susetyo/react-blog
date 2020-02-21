@@ -30,7 +30,7 @@ const CreateArticleForm = ({handleChangeInput,categories,handleSubmit}) => {
                         </div>
                     </div>
                     <div className="form-group">
-                        <textarea className="form-control form-control-lg" rows={4} placeholder="Content" name="message" defaultValue={""} />
+                        <textarea className="form-control form-control-lg" rows={4} placeholder="Content" onChange={handleChangeInput} name="content" defaultValue={""} />
                     </div>
                     <div className="text-center">
                         <button className="btn btn-lg btn-primary" type="submit">Create Article</button>

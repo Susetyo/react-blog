@@ -1,6 +1,6 @@
 import React from 'react';
 import CreateArticleForm from './CreateArticleForm/index';
-
+import PropTypes from 'prop-types';
 class CreateArticle extends React.Component{
     constructor(){
         super();
@@ -25,7 +25,13 @@ class CreateArticle extends React.Component{
     handleSubmit = async (event) =>{
         event.preventDefault();
 
-        await this.props.createArticle(this.state);
+        try{
+            let article = await this.props.createArticle(this.state,this.props.token);
+            this.props.history.push('/')
+        }catch(errors){
+            console.log(errors)
+            this.setState({errors})
+        }
     }
 
     handleChangeInput = (event) => {
@@ -44,3 +50,9 @@ class CreateArticle extends React.Component{
 }
 
 export default CreateArticle;
+
+CreateArticle.propTypes = {
+    getArticlesCategories: PropTypes.func.isRequired,
+    createArticle: PropTypes.func.isRequired,
+    token: PropTypes.string.isRequired,
+}

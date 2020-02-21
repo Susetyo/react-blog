@@ -46,6 +46,7 @@ class App extends React.Component{
                         {...props}
                         getArticlesCategories = {this.props.articlesServices.getCategories}
                         createArticle = {this.props.articlesServices.createArticle}
+                        token = {this.state.authUser !== null ? this.state.authUser.token : null}
                     />}></Route>
                 <Route 
                     path="/login" 
