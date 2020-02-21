@@ -45,6 +45,7 @@ class App extends React.Component{
                     render={(props)=><CreateArticle 
                         {...props}
                         getArticlesCategories = {this.props.articlesServices.getCategories}
+                        createArticle = {this.props.articlesServices.createArticle}
                     />}></Route>
                 <Route 
                     path="/login" 

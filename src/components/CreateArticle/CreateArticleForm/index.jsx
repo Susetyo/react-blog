@@ -1,18 +1,21 @@
 import React from 'react';
 import Banner from '../../Banner';
 
-const CreateArticleForm = ({handleChangeInput,categories}) => {
+const CreateArticleForm = ({handleChangeInput,categories,handleSubmit}) => {
   return(
     <div>
       <Banner 
           backgroundImage={`url(${process.env.PUBLIC_URL}/assets/img/bg-laptop.jpg)`}
           title="Write an article"/>
       <main className="main-content">
-            <section className="section">
-            <div className="container">
-                <div className="row">
-                <div className="col-12 col-lg-12">
-                    <form className="p-30 bg-gray rounded" method="POST" data-form="mailer">
+        <section className="section">
+          <div className="container">
+            <div className="row">
+              <div className="col-12 col-lg-12">
+                  <form 
+                    className="p-30 bg-gray rounded"  
+                    data-form="mailer"
+                    onSubmit={handleSubmit}>
                     <div className="row">
                         <div className="form-group col-md-12 my-5">
                           <input type="file" className="form-control" onChange={handleChangeInput} name="image" />
@@ -32,12 +35,12 @@ const CreateArticleForm = ({handleChangeInput,categories}) => {
                     <div className="text-center">
                         <button className="btn btn-lg btn-primary" type="submit">Create Article</button>
                     </div>
-                    </form>
-                </div>
-                </div>
+                  </form>
+              </div>
+              </div>
             </div>
-            </section>
-        </main>
+        </section>
+      </main>
     </div>
   )
 } 
