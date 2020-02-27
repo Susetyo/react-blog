@@ -1,31 +1,28 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-
-const Article = () =>{
+var moment = require('moment');
+const Article = ({d}) =>{
     return(
-        <article className="mt-90">
-            <header className="text-center mb-40">
-                <h3>
-                    <a href="blog-single.html">New features will add to dashboard soon</a>
-                </h3>
-                <div className="link-color-default fs-12">
-                    <a href="#">News</a>,
-                    <time>May 13, 2017</time>
-                </div>
-            </header>
-            <a href="blog-single.html">
-                <img className="rounded" src="assets/img/blog-1.jpg" alt="..." />
-            </a>
-            <div className="card-block">
-                <p className="text-justify">Together. Great. So good was saying, that can't first let called air divide stars male isn't i. Herb third let
-                may fourth divide. Greater gathering land you'll i their beast have. She'd form sea it wherein fowl, spirit
-                creeping living. Likeness creepeth you hath heaven. Likeness, moveth fruitful behold. Open evening a air us
-                behold. Saying above moving second a subdue likeness after also second.</p>
-                <p className="text-center mt-40">
-                    <Link className="btn btn-primary btn-round" to="/article/the-news">Read more</Link>
-                </p>
-            </div>
-        </article>
+      <article className="mt-90">
+        <header className="text-center mb-40">
+          <h3><a href={d.slug+'.html'}>{d.title}</a></h3>
+          <div className="link-color-default fs-12">
+            <a href={`${d.category.slug}.html`}>{d.category.name}</a>,
+            <time>{moment(`${d.created_at}`,'YYYY-MM-DDTHH:mm:ss').format('llll')}</time>
+          </div>
+        </header>
+          <a href={d.slug+'.html'}>
+            <img className="rounded" src={d.imageUrl} alt={d.slug} />
+          </a>
+          <div className="card-block">
+            <p className="text-justify">{d.content}</p>
+            <p className="text-center mt-40">
+              <Link 
+                className="btn btn-primary btn-round" 
+                to={`/article/${d.slug}`}>Read more</Link>
+            </p>
+          </div>
+      </article>
     )
 }
 

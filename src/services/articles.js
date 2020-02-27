@@ -3,9 +3,14 @@ import axios from 'axios';
 import { validateAll } from 'indicative/validator';
 
 export default class ArticlesServices{
+
+  async getArticles(){
+    const r = await axios.get(`${config.apiUrl}/articles`)
+    return r.data.data.data;
+  }
+
   async getCategories(){
     const response = await axios.get(`${config.apiUrl}/categories`)
-
     return response.data.categories
   }
 
