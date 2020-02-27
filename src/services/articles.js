@@ -1,5 +1,6 @@
 import config from '../config';
 import axios from 'axios';
+import { validateAll } from 'indicative/validator';
 
 export default class ArticlesServices{
   async getCategories(){
@@ -9,8 +10,18 @@ export default class ArticlesServices{
   }
 
   createArticle = async (data,token) =>{
-    const img = await this.uploadImagesToCloudinary(data.image);
     try{
+      const img = await this.uploadImagesToCloudinary(data.image);
+      const rules = {
+        image:'required',
+        title: 'required',
+        category:'required',
+        content:'required',
+      }
+      const messages = {
+        required: `{{field}} is required`,
+      }
+      await validateAll(data,rules,messages);
       const res = await axios.post(`${config.apiUrl}/articles`,{
         imageUrl:img.secure_url,
         title: data.title,
@@ -19,14 +30,10 @@ export default class ArticlesServices{
       },{
         headers:{Authorization:`Bearer ${token}`}
       })
-
-      console.log(res)
-
       return res.data;
     }catch(err){
-      console.log(err)
-
-      return err.response.data
+      if(err.response) return Promise.reject([err.response.data.error])
+      return Promise.reject(err)
     }
   }
 
@@ -34,11 +41,11 @@ export default class ArticlesServices{
     let f = new FormData();
     f.append('file',img)
     f.append('upload_preset','ml_default')
-
-    console.log(img)
-    const res =  await axios.post('https://api.cloudinary.com/v1_1/ilotte-com/image/upload',f);
-
-    return res.data;
+    
+      const res =  await axios.post('https://api.cloudinary.com/v1_1/ilotte-com/image/upload',f);
+    
+      return res.data;
+    
 
   }
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import Banner from '../../Banner';
 
-const CreateArticleForm = ({handleChangeInput,categories,handleSubmit}) => {
+const CreateArticleForm = ({handleChangeInput,categories,handleSubmit,errors}) => {
   return(
     <div>
       <Banner 
@@ -10,8 +10,11 @@ const CreateArticleForm = ({handleChangeInput,categories,handleSubmit}) => {
       <main className="main-content">
         <section className="section">
           <div className="container">
-            <div className="row">
+            <div className="row">              
               <div className="col-12 col-lg-12">
+                  <ul className="list-group">
+                    {errors.map((error,index)=> <li key={index} className="list-group-item text-danger">{error.message}</li>)}
+                  </ul>
                   <form 
                     className="p-30 bg-gray rounded"  
                     data-form="mailer"

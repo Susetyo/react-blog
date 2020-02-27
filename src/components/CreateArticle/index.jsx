@@ -6,7 +6,7 @@ class CreateArticle extends React.Component{
         super();
 
         this.state={
-            errors:{},
+            errors:[],
             image:null,
             title: '',
             category:'',
@@ -29,7 +29,7 @@ class CreateArticle extends React.Component{
             let article = await this.props.createArticle(this.state,this.props.token);
             this.props.history.push('/')
         }catch(errors){
-            console.log(errors)
+            if(typeof errors == "object") console.log(errors)
             this.setState({errors})
         }
     }
@@ -45,7 +45,8 @@ class CreateArticle extends React.Component{
         return(<CreateArticleForm
             handleSubmit = {this.handleSubmit}
             categories = {this.state.categories} 
-            handleChangeInput={this.handleChangeInput} />)
+            handleChangeInput={this.handleChangeInput} 
+            errors={this.state.errors}/>)
     }
 }
 

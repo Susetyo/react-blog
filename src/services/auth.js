@@ -26,7 +26,6 @@ export default class AuthService{
             return response.data.data;
 
         }catch(errors){
-            console.log(errors)
             const formatedErrors = {}
             if(errors.response !== undefined && errors.response.status == 401){
                 formatedErrors['email'] = 'Invalid credentials.';
