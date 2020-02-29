@@ -11,8 +11,13 @@ class SingleArticle extends React.Component{
   }
 
   async componentWillMount(){
-    const res = await this.props.getArticle(this.props.match.params.slug);
-    this.setState({art:res,laoding:false})
+    if(localStorage.getItem('articles')){
+      let res = JSON.parse(localStorage.getItem('articles')).find(s=>s.slug === this.props.match.params.slug)
+      this.setState({art:res,laoding:false})
+    }else{
+      const res = await this.props.getArticle(this.props.match.params.slug);
+      this.setState({art:res,laoding:false})
+    }
   }
 
   render(){

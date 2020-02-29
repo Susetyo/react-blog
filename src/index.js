@@ -17,19 +17,22 @@ class App extends React.Component{
         super();
 
         this.state = {
-            authUser: null
+					authUser: null,
         }
     }
-
     componentDidMount(){
-        const user = localStorage.getItem('user')
-        
-        if(user) this.setState({ authUser: JSON.parse(user) })
-    }
-
-    setAuthUser= (authUser) =>{
-        this.setState({ authUser })
-    }
+			const user = localStorage.getItem('user')
+			
+			if(user) this.setState({ authUser: JSON.parse(user) })
+		}
+		
+		setAuthUser= (authUser) =>{ this.setState({ authUser }) }
+		
+		setArticles = (articles,paginate)=>{
+			localStorage.setItem('articles',JSON.stringify(articles)); 
+			localStorage.setItem('paginate',JSON.stringify(paginate)); 
+			localStorage.setItem('idChecker',JSON.stringify(articles[0].id)); 
+		}
 
     render(){
         const {location} = this.props;
@@ -45,7 +48,9 @@ class App extends React.Component{
                   render={(props)=><Welcome 
                       {...props}
                       getArticles = {this.props.articlesServices.getArticles}
-                      getPaginateArticles = {this.props.articlesServices.getPaginateArticles}
+											getPaginateArticles = {this.props.articlesServices.getPaginateArticles}
+											setArticles = {this.setArticles}
+											articles = {this.state.articles}
                   />}></Route>
                 <Route 
                   path="/articles/create" 

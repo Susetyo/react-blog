@@ -17,9 +17,14 @@ class CreateArticle extends React.Component{
     }
 
     async componentWillMount(){
-        const categories = await this.props.getArticlesCategories()
-
-        this.setState({categories})
+        if(localStorage.getItem('categories')){
+            const categories = JSON.parse(localStorage.getItem('categories'));
+            this.setState({categories})
+        }else{
+            const categories = await this.props.getArticlesCategories();
+            localStorage.setItem('categories',JSON.stringify(categories));
+            this.setState({categories})
+        }
     }
 
     handleSubmit = async (event) =>{
