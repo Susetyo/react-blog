@@ -27,16 +27,19 @@ const CreateArticleForm = ({handleChangeInput,categories,handleSubmit,errors}) =
                           <input className="form-control form-control-lg" onChange={handleChangeInput} name="image"  type="text" name="title" placeholder="Title" />
                         </div>
                         <div className="form-group col-12 col-md-6">
-                        <select onChange={handleChangeInput} name="category" className="form-control form-control-lg">
-                          {categories.map(category=><option value={category.id} key={category.id}>{category.name}</option>)}
-                        </select>
+                          <select 
+                            onChange={handleChangeInput} 
+                            name="category" 
+                            className="form-control form-control-lg">
+                              {categories.map(category=><option value={category.id} key={category.id}>{category.name}</option>)}
+                          </select>
                         </div>
                     </div>
                     <div className="form-group">
-                        <textarea className="form-control form-control-lg" rows={4} placeholder="Content" onChange={handleChangeInput} name="content" defaultValue={""} />
+                      <textarea className="form-control form-control-lg" rows={4} placeholder="Content" onChange={handleChangeInput} name="content" defaultValue={""} />
                     </div>
                     <div className="text-center">
-                        <button className="btn btn-lg btn-primary" type="submit">Create Article</button>
+                      <button className="btn btn-lg btn-primary" type="submit">Create Article</button>
                     </div>
                   </form>
               </div>
@@ -45,6 +48,7 @@ const CreateArticleForm = ({handleChangeInput,categories,handleSubmit,errors}) =
         </section>
       </main>
     </div>
+    
   )
 } 
 

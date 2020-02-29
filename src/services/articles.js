@@ -4,9 +4,30 @@ import { validateAll } from 'indicative/validator';
 
 export default class ArticlesServices{
 
-  async getArticles(){
-    const r = await axios.get(`${config.apiUrl}/articles`)
+  async getPaginateArticles(param){
+    let r = ""
+    if(param){
+      r = await axios.get(`${param}`)
+    }else{
+      r = await axios.get(`${config.apiUrl}/articles`)
+    }
+    delete r.data.data.data
+    return r.data.data;
+  }
+
+  async getArticles(param){
+    let r = "";
+    if(param ) {
+      r = await axios.get(`${param}`)
+    }else{
+      r = await axios.get(`${config.apiUrl}/articles`)
+    }
     return r.data.data.data;
+  }
+
+  async getArticle(slug){
+    const r = await axios.get(`${config.apiUrl}/article/${slug}`);
+    return r.data.data
   }
 
   async getCategories(){

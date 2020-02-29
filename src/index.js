@@ -36,44 +36,51 @@ class App extends React.Component{
         return(
             <div>
                 {
-                    location.pathname !== '/login' && location.pathname !== '/signup' &&
-                    <Navbar  authUser={this.state.authUser} />
+                  location.pathname !== '/login' && location.pathname !== '/signup' &&
+                  <Navbar  authUser={this.state.authUser} />
                 }
                 <Route 
-                    exact 
-                    path="/" 
-                    render={(props)=><Welcome 
-                        {...props}
-                        getArticles = {this.props.articlesServices.getArticles}
-                    />}></Route>
+                  exact 
+                  path="/" 
+                  render={(props)=><Welcome 
+                      {...props}
+                      getArticles = {this.props.articlesServices.getArticles}
+                      getPaginateArticles = {this.props.articlesServices.getPaginateArticles}
+                  />}></Route>
                 <Route 
-                    path="/articles/create" 
-                    render={(props)=><CreateArticle 
-                        {...props}
-                        getArticlesCategories = {this.props.articlesServices.getCategories}
-                        createArticle = {this.props.articlesServices.createArticle}
-                        token = {this.state.authUser !== null ? this.state.authUser.token : null}
-                    />}></Route>
+                  path="/articles/create" 
+                  render={(props)=><CreateArticle 
+                      {...props}
+                      getArticlesCategories = {this.props.articlesServices.getCategories}
+                      createArticle = {this.props.articlesServices.createArticle}
+                      token = {this.state.authUser !== null ? this.state.authUser.token : null}
+                  />}></Route>
                 <Route 
-                    path="/login" 
-                    render={(props)=><Login 
-                        {...props}
-                        loginUser={this.props.authService.loginUser}
-                        setAuthUser={this.setAuthUser} 
-                    />}
+                  path="/login" 
+                  render={(props)=><Login 
+                      {...props}
+                      loginUser={this.props.authService.loginUser}
+                      setAuthUser={this.setAuthUser} 
+                  />}
                 >
                 </Route>
                 <Route 
-                    path="/signUp" 
-                    render={(props)=><SignUp 
-                            {...props} 
-                            registerUser={this.props.authService.registerUser}
-                            setAuthUser={this.setAuthUser} />}>
+                  path="/signUp" 
+                  render={(props)=><SignUp 
+                          {...props} 
+                          registerUser={this.props.authService.registerUser}
+                          setAuthUser={this.setAuthUser} />}>
                 </Route>
-                <Route path="/article/:slug" component={SingleArticle}></Route>
+                <Route 
+                  path="/article/:slug"
+                  render={(props)=><SingleArticle 
+										{...props}
+										getArticle={this.props.articlesServices.getArticle}
+									/>}>
+                </Route>
                 {
-                    location.pathname !== '/login' && location.pathname !== '/signup' &&
-                    <Footer />
+                  location.pathname !== '/login' && location.pathname !== '/signup' &&
+                  <Footer />
                 }
             </div>
         )
